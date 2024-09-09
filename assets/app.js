@@ -46,9 +46,11 @@ function RunGameApp() {
     const moneyNow = LoadMoneyWallet()
     let toTotal = Number(moneyNow)
     if(isMinus) {
-      toTotal = toTotal - Math.floor(Math.random() * 60)
+      toTotal = toTotal - Math.floor(Math.random() * 250)
     } else {
-      toTotal = toTotal + Math.floor(Math.random() * 100)
+      const randomPitys = Math.floor(Math.random() * 500)
+      const supPity = randomPitys < 40? 40 : randomPitys
+      toTotal = toTotal + supPity
     }
     localStorage.setItem("wallet", `${toTotal}`)
     WriteToHTMLMoney(toTotal)
@@ -91,6 +93,9 @@ function RunGameApp() {
         const video = document.createElement("video")
         
         if(gacha) {
+          if(gacha == "limit") {
+            SendingAlert('The system deliberately makes you 5% more likely to win beforehand','info')
+          }
           video.src = winVideo
           setTimeout(() => {
             UpdateWallet()
